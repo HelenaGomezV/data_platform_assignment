@@ -1,0 +1,36 @@
+name: Terraform
+
+on:
+  pull_request:
+    paths:
+      - "exercise-2/**"
+
+  push:
+    branches:
+      - main
+    paths:
+      - "exercise-2/**"
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: exercise-2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Validate
+        run: terraform validate
