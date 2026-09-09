@@ -18,10 +18,10 @@ resource "aws_secretsmanager_secret_version" "this" {
 }
 
 resource "snowflake_service_user" "this" {
-  name         = var.service_name
-  default_role = var.role_name
+  name              = var.service_name
+  default_role      = var.role_name
+  default_warehouse = var.default_warehouse
 }
-
 resource "snowflake_grant_account_role" "this" {
   role_name = var.role_name
   user_name = snowflake_service_user.this.name
