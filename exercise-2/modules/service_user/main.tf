@@ -21,6 +21,7 @@ resource "snowflake_service_user" "this" {
   name              = var.service_name
   default_role      = var.role_name
   default_warehouse = var.default_warehouse
+  rsa_public_key    = replace(replace(replace(tls_private_key.this.public_key_pem, "-----BEGIN PUBLIC KEY-----", ""), "-----END PUBLIC KEY-----", ""), "\n", "")
 }
 resource "snowflake_grant_account_role" "this" {
   role_name = var.role_name
