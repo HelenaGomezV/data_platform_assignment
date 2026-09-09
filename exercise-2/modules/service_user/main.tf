@@ -21,3 +21,8 @@ resource "snowflake_service_user" "this" {
   name         = var.service_name
   default_role = var.role_name
 }
+
+resource "snowflake_grant_account_role" "this" {
+  role_name = var.role_name
+  user_name = snowflake_service_user.this.name
+}
